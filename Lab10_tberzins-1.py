@@ -38,9 +38,9 @@ class WordAnalyzer:
     
     #Print function to print dictionary alphabetically
     def print_report(self):
-        sorted_dict = dict(sorted(self.__frequencies()))
-        for key, value in sorted_dict():
-            print(f"{key<10}", f"::{value}")
+        sorted_dict = dict(sorted(self.__frequencies.items()))
+        for key, value in sorted_dict.items():
+            print(f"{key:<15} ::{value}")
 
                     
                     
@@ -69,10 +69,31 @@ def main():
         "5": "Exit"
     }
     print(file_names)
+    user_choice = input("Enter your choice")
+    if(user_choice == "5"):
+        print("Goodbye!")
+        return
+    else:
+        
+    
+     while(user_choice != "1" and user_choice != "2" and user_choice != "3" and user_choice != "4"):
+        user_choice = input("Invalid choice. Please select from 1-5")
+    
+     while(user_choice == "1" or user_choice == "2" or user_choice == "3"or user_choice == "4"):
+       analyzer = WordAnalyzer(files[user_choice])
+       analyzer.process_file()
+       analyzer.print_report()
+          
+       user_choice = input("Enter your choice")
+    
+       while(user_choice != "1" and user_choice != "2" and user_choice != "3" and user_choice != "4"):
+        if(user_choice == "5"):
+           print("Goodbye!")
+           return
+        else:
+         user_choice = input("Invalid choice. Please select from 1-5")
 
-    analyzer = WordAnalyzer(files[input("Enter your choice")])
-    analyzer.process_file()
-    analyzer.print_report()
+        
 
 
 if __name__ == "__main__":
