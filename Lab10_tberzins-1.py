@@ -16,13 +16,16 @@ class WordAnalyzer:
     """
 
     def __init__(self, filepath):
+        """Using path creates the file path and an empty dictionary """
         self.__filepath = Path(filepath)
 
         self.__frequencies = {}
 
     def process_file(self):
-       
-        with open(self.__filepath, 'r') as file:
+        """Processes the file adding keys and values for each word in a dictionary"""
+
+        try:
+         with open(self.__filepath, 'r') as file:
             #For loop to create each line to a list without punctuation and all lower case of words
             for line in file:
                 translator = str.maketrans('', '', string.punctuation)
@@ -35,9 +38,13 @@ class WordAnalyzer:
                       self.__frequencies[word_list[i]]+=1
                     else:
                       self.__frequencies[word_list[i]]=1
+        except FileNotFoundError:
+           print("File is not found in the current working directory")
     
     #Print function to print dictionary alphabetically
+    
     def print_report(self):
+        """Prints the resulting dictionary alphabetically and formatted"""
         sorted_dict = dict(sorted(self.__frequencies.items()))
         for key, value in sorted_dict.items():
             print(f"{key:<15} ::{value}")
@@ -68,6 +75,7 @@ def main():
         "4": "Treasure Island",
         "5": "Exit"
     }
+    #First instance of asking the user for a choice
     print(file_names)
     user_choice = input("Enter your choice")
     if(user_choice == "5"):
@@ -75,7 +83,7 @@ def main():
         return
     else:
         
-    
+    #Loop to continue to ask the user for a choice until they choose exit
      while(user_choice != "1" and user_choice != "2" and user_choice != "3" and user_choice != "4"):
         user_choice = input("Invalid choice. Please select from 1-5")
     
